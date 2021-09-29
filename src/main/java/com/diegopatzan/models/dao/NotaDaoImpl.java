@@ -59,7 +59,7 @@ public class NotaDaoImpl implements INotaDao {
                 String idAsignacion = rs.getString("nota.asignacion_id");
                
                 
-                nota = new Nota(idNota, nombreActividad, notaActividad, fechaEntrega, idAsignacion);
+               // nota = new Nota(idNota, nombreActividad, notaActividad, fechaEntrega, idAsignacion);
                 listaNota.add(nota);
             }
         } catch (SQLException e) {
@@ -95,7 +95,7 @@ public class NotaDaoImpl implements INotaDao {
                 nota.setNombreActividad(nombreActividad);
                 nota.setNotaActividad(notaActividad);
                 nota.setFechaEntrega(fechaEntrega);
-                nota.setIdAsignacion(idAsignacion);
+                //nota.setIdAsignacion(idAsignacion);
 /*                nota.setNombres(nombres);
                 nota.setApellidos(apellidos);
                 nota.setDescripcion(descripcion);
@@ -116,7 +116,7 @@ public class NotaDaoImpl implements INotaDao {
     @Override
     public int insertar(Nota nota) {
         int rows = 0;
-        try {
+        /*try {
             conn = Conexion.getConnection();
             pstmt = conn.prepareStatement(SQL_INSERT);
             pstmt.setString(1, nota.getNombreActividad());
@@ -132,7 +132,7 @@ public class NotaDaoImpl implements INotaDao {
         } finally {
             Conexion.close(pstmt);
             Conexion.close(conn);
-        }
+        }*/
         return rows;
     }
 
@@ -140,7 +140,7 @@ public class NotaDaoImpl implements INotaDao {
     public int actualizar(Nota nota) {
          int rows = 0;
 
-        try {
+        /*try {
             conn = Conexion.getConnection();
             pstmt = conn.prepareStatement(SQL_UPDATE);
             pstmt.setString(1, nota.getNombreActividad());
@@ -159,14 +159,14 @@ public class NotaDaoImpl implements INotaDao {
         } finally {
             Conexion.close(pstmt);
             Conexion.close(conn);
-        }
+        }*/
         return rows;
     }
 
     @Override
     public int eliminar(Nota nota) {
         int rows = 0;
-        try {
+        /*try {
             conn = Conexion.getConnection();
             pstmt = conn.prepareStatement(SQL_DELETE);
             pstmt.setInt(1, nota.getIdNota());
@@ -178,7 +178,7 @@ public class NotaDaoImpl implements INotaDao {
         } finally {
             Conexion.close(pstmt);
             Conexion.close(conn);
-        }
+        }*/
         return rows;
     }
 

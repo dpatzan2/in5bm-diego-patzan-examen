@@ -7,6 +7,15 @@ package com.diegopatzan.models.domain;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
@@ -14,25 +23,38 @@ import java.sql.Timestamp;
  * @date 30/08/2021
  * @time 02:20:17 PM
  */
+
+@Entity
+@Table(name = "asignacion_alumno")
+@NamedQueries({
+    @NamedQuery(
+            name = "AsignacionAlumno.findAll",
+            query = "from AsignacionAlumno"
+    )
+})
 public class AsignacionAlumno implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Id
+    @Column(name = "asignacion_id")
     private String idAsignacion;
+    @Column(name = "carne")
     private String carne;
+    @Column(name = "curso_id")
     private int idCurso;
+    @Column(name = "fecha_asignacion")
     private Timestamp fecha_asignacion;
-    private String nombres;
-    private String apellidos;
-    private String descripcion;
+    
+    @OneToMany(mappedBy = "asignacionAlumno", fetch = FetchType.LAZY)
+    private List<Nota> nota;
+   
 
-    public AsignacionAlumno(String idAsignacion, String carne, int idCurso, Timestamp fecha_asignacion, String nombres, String apellidos, String descripcion) {
+    public AsignacionAlumno(String idAsignacion, String carne, int idCurso, Timestamp fecha_asignacion) {
         this.idAsignacion = idAsignacion;
         this.carne = carne;
         this.idCurso = idCurso;
         this.fecha_asignacion = fecha_asignacion;
-        this.nombres = nombres;
-        this.apellidos = apellidos;
-        this.descripcion = descripcion;
+
     }
 
     public AsignacionAlumno() {
@@ -48,36 +70,6 @@ public class AsignacionAlumno implements Serializable {
         this.fecha_asignacion = fecha_asignacion;
     }
 
-    public AsignacionAlumno(String idAsignacion, String carne, int idCurso, Timestamp fecha_asignacion) {
-        this.idAsignacion = idAsignacion;
-        this.carne = carne;
-        this.idCurso = idCurso;
-        this.fecha_asignacion = fecha_asignacion;
-    }
-
-    public String getNombres() {
-        return nombres;
-    }
-
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
-    }
-
-    public String getApellidos() {
-        return apellidos;
-    }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
 
     public String getIdAsignacion() {
         return idAsignacion;
@@ -114,6 +106,14 @@ public class AsignacionAlumno implements Serializable {
     @Override
     public String toString() {
         return "AsignacionAlumno{" + "idAsignacion=" + idAsignacion + ", carne=" + carne + ", idCurso=" + idCurso + ", fecha_asignacion=" + fecha_asignacion + '}';
+    }
+
+    public List<Nota> getNota() {
+        return nota;
+    }
+
+    public void setNota(List<Nota> nota) {
+        this.nota = nota;
     }
 
 }

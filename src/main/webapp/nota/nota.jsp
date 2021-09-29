@@ -66,7 +66,7 @@
                                 <select class="form-select" name="idAsignacion" id="idAsignacion" required>
 
                                     <c:forEach var="asignacionAlumno" items="${listadoAsginacion}">
-                                        <option value="${asignacionAlumno.idAsignacion}">ID: ${asignacionAlumno.idAsignacion} |Alumno: ${asignacionAlumno.nombres} ${asignacionAlumno.apellidos} |Curso: ${asignacionAlumno.descripcion} |Fecha asignación: ${asignacionAlumno.fecha_asignacion}</option>
+                                        <option value="${asignacionAlumno.idAsignacion}">ID: ${asignacionAlumno.idAsignacion} | Carne: ${asignacionAlumno.carne} | Curso: ${asignacionAlumno.idCurso} | Fecha asignación: ${asignacionAlumno.fecha_asignacion}</option>
                                     </c:forEach>
                                 </select>
                             </div>
@@ -103,7 +103,7 @@
                             <td>${nota.nombreActividad}</td>
                             <td>${nota.notaActividad}</td>
                             <td>${nota.fechaEntrega}</td>
-                            <td>${nota.idAsignacion}</td>
+                            <td>${nota.asignacionAlumno.getIdAsignacion()}</td>
                             
                             <td>
                                 <a class="btn btn-warning" href="${pageContext.request.contextPath}/ServletNotaController?accion=editar&idNota=${nota.idNota}"><i class="far fa-edit"></i>  Editar</a>

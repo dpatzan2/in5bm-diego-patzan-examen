@@ -53,8 +53,11 @@ public class ServletNotaController extends HttpServlet{
     private void editarNota(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         int idNota = Integer.parseInt(request.getParameter("idNota"));
         
-        Nota nota = new NotaDaoImpl().encontrar(new Nota(idNota));
+        Nota nota = new NotaDaoJPA().encontrar(new Nota(idNota));
+        AsignacionAlumno asignacionAlumno = new AsignacionAlumnoDaoImpl().encontrar(new AsignacionAlumno(nota.getAsignacionAlumno().getIdAsignacion()));
+        System.out.println(asignacionAlumno);
         request.setAttribute("nota", nota);
+        request.setAttribute("asignacionId", asignacionAlumno.getIdAsignacion());
         request.getRequestDispatcher("nota/editar-nota.jsp").forward(request, response);
     }
     
@@ -66,6 +69,8 @@ public class ServletNotaController extends HttpServlet{
     private void listarNota(HttpServletRequest request, HttpServletResponse response) throws IOException{
         //List<Nota> listaNota = new NotaDaoImpl().listar();
         List<Nota> listaNota = new NotaDaoJPA().listar();
+        
+        List<AsignacionAlumno> listaAsignacionAlumno = new AsignacionAlumnoDaoImpl().listar();
         
         HttpSession sesion = request.getSession();
         sesion.setAttribute("listadoNota", listaNota);
@@ -80,7 +85,7 @@ public class ServletNotaController extends HttpServlet{
         
         double promedioTotal = 0;
         double sumaNotas = 0;
-        List<Nota> listaNota = new NotaDaoImpl().listar();
+        List<Nota> listaNota = new NotaDaoJPA().listar();
         int estudiantes = listaNota.size();
         for(Nota nota : listaNota){
             sumaNotas = sumaNotas + nota.getNotaActividad();
@@ -92,7 +97,7 @@ public class ServletNotaController extends HttpServlet{
     
     private int aprobados(){
         int aprobados = 0;
-        List<Nota> listaNota = new NotaDaoImpl().listar();
+        List<Nota> listaNota = new NotaDaoJPA().listar();
         for(Nota nota : listaNota){
             if (nota.getNotaActividad() >= 70) {
                 aprobados++;
@@ -103,7 +108,7 @@ public class ServletNotaController extends HttpServlet{
     
     private int reprobados(){
         int reprobados = 0;
-        List<Nota> listaNota = new NotaDaoImpl().listar();
+        List<Nota> listaNota = new NotaDaoJPA().listar();
         for(Nota nota: listaNota){
             if (nota.getNotaActividad() < 70) {
                 reprobados++;
@@ -114,8 +119,9 @@ public class ServletNotaController extends HttpServlet{
     
     private void eliminarNota(HttpServletRequest request, HttpServletResponse response) throws IOException{
         int idNota = Integer.parseInt(request.getParameter("idNota"));
-        Nota nota = new Nota(idNota);
-        int registrosEliminados = new NotaDaoImpl().eliminar(nota);
+        
+        Nota nota = new NotaDaoJPA().encontrar(new Nota(idNota));
+        int registrosEliminados = new NotaDaoJPA().eliminar(nota);
         listarNota(request, response);
     }
     
@@ -126,7 +132,7 @@ public class ServletNotaController extends HttpServlet{
         if (accion != null) {
             switch(accion){
                 case "insertar":
-                    insertarNota(request, response);
+                   insertarNota(request, response);
                     break;
                 case "actualizar":
                     actualizarNota(request, response);
@@ -136,7 +142,7 @@ public class ServletNotaController extends HttpServlet{
         
     }
     
-    private void actualizarNota(HttpServletRequest request, HttpServletResponse response) throws IOException{
+   private void actualizarNota(HttpServletRequest request, HttpServletResponse response) throws IOException{
         int idNota = Integer.parseInt(request.getParameter("idNota"));
         String nombreActividad = request.getParameter("nombreActividad");
         String notaActividadStr = request.getParameter("notaActividad");
@@ -156,9 +162,10 @@ public class ServletNotaController extends HttpServlet{
             fechaEntrega = Date.valueOf(request.getParameter("fechaEntrega"));
         }
         String idAsignacion = request.getParameter("idAsignacion");
+        AsignacionAlumno asignacionAlumno = new AsignacionAlumnoDaoImpl().encontrar(new AsignacionAlumno(idAsignacion));
         
-        Nota nota = new Nota(idNota, nombreActividad, notaActividad, fechaEntrega, idAsignacion);
-        int registrosModificados = new NotaDaoImpl().actualizar(nota);
+        Nota nota = new Nota(idNota, nombreActividad, notaActividad, fechaEntrega, asignacionAlumno);
+        int registrosModificados = new NotaDaoJPA().actualizar(nota);
         System.out.println("estoy por llamar al listar");
         listarNota(request, response);
         System.out.println("Ya llame al listar");
@@ -183,9 +190,10 @@ public class ServletNotaController extends HttpServlet{
             fechaEntrega = Date.valueOf(request.getParameter("fechaEntrega"));
         }
         String idAsignacion = request.getParameter("idAsignacion");
+        AsignacionAlumno asignacionAlumno = new AsignacionAlumnoDaoImpl().encontrar(new AsignacionAlumno(idAsignacion));
         
-        Nota nota = new Nota(nombreActividad, notaActividad, fechaEntrega, idAsignacion);
-        int registrosModificados = new NotaDaoImpl().insertar(nota);
+        Nota nota = new Nota(nombreActividad, notaActividad, fechaEntrega, asignacionAlumno);
+        int registrosModificados = new NotaDaoJPA().insertar(nota);
         listarNota(request, response);
     }
     

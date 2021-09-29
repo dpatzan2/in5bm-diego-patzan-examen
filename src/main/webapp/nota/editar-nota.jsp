@@ -47,10 +47,15 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="idAsignacion" class="form-label text-white">Asignación</label>
-                                        <select class="form-select" name="idAsignacion" id="idAsignacion" required>
-                                            <option value="${nota.idAsignacion}">ID: ${nota.idAsignacion} </option>
+                                        <select class="form-select" name="idAsignacion" id="idAsignacion" value="${asignacionId}" required> 
                                             <c:forEach var="asignacionAlumno" items="${listadoAsginacion}">
-                                                <option value="${asignacionAlumno.idAsignacion}">ID: ${asignacionAlumno.idAsignacion} |Alumno: ${asignacionAlumno.nombres} ${asignacionAlumno.apellidos} |Curso: ${asignacionAlumno.descripcion} |Fecha asignación: ${asignacionAlumno.fecha_asignacion}</option>
+                                                <c:if test="${asignacionAlumno.getIdAsignacion() == asignacionId}">
+                                                    <option selected="selected" value="${asignacionAlumno.getIdAsignacion()}">ID: ${asignacionAlumno.getIdAsignacion()} | Carne: ${asignacionAlumno.getCarne()} | Curso: ${asignacionAlumno.getIdCurso()} Fecha asignación: ${asignacionAlumno.getFecha_asignacion()}</option>
+                                                </c:if>
+                                                <c:if test="${asignacionAlumno.getIdAsignacion() != asignacionId}">
+                                                    <option value="${asignacionAlumno.idAsignacion}">ID: ${asignacionAlumno.idAsignacion} | Carne: ${asignacionAlumno.carne} | Curso: ${asignacionAlumno.idCurso} | Fecha asignación: ${asignacionAlumno.fecha_asignacion}</option>
+                                                </c:if>
+
                                             </c:forEach>
                                         </select>
                                     </div>

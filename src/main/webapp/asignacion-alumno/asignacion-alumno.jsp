@@ -98,8 +98,8 @@
                     <c:forEach var="asignacionAlumno" items="${listadoAsignacionAlumno}">
                         <tr>
                             <td>${asignacionAlumno.idAsignacion}</td>
-                            <td>${asignacionAlumno.nombres} ${asignacionAlumno.apellidos}</td>
-                            <td>${asignacionAlumno.descripcion}</td>
+                            <td>${asignacionAlumno.carne}</td>
+                            <td>${asignacionAlumno.idCurso}</td>
                             <td>${asignacionAlumno.fecha_asignacion}</td>
                             <td>
                                 <a class="btn btn-warning" href="${pageContext.request.contextPath}/ServletAsignacionAlumnoController?accion=editar&idAsignacion=${asignacionAlumno.idAsignacion}"><i class="far fa-edit"></i>  Editar</a>

@@ -25,22 +25,52 @@ public class NotaDaoJPA implements INotaDao {
 
     @Override
     public Nota encontrar(Nota nota) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (Nota) conn.getEntityManager().createNamedQuery("Nota.find").setParameter("id", nota.getIdNota()).getSingleResult();
     }
 
     @Override
     public int insertar(Nota nota) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int rows = 0;
+        try {
+            conn.getEntityManager().getTransaction().begin();
+            conn.getEntityManager().persist(nota);
+            conn.getEntityManager().getTransaction().commit();
+            rows = 1;
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+            conn.getEntityManager().getTransaction().rollback();
+        }
+        return rows;
     }
 
     @Override
     public int actualizar(Nota nota) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int rows = 0;
+        try {
+            conn.getEntityManager().getTransaction().begin();
+            conn.getEntityManager().merge(nota);
+            conn.getEntityManager().getTransaction().commit();
+            rows = 1;
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+            conn.getEntityManager().getTransaction().rollback();
+        }
+        return rows;
     }
 
     @Override
     public int eliminar(Nota nota) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int rows = 0;
+        try {
+            conn.getEntityManager().getTransaction().begin();
+            conn.getEntityManager().remove(nota);
+            conn.getEntityManager().getTransaction().commit();
+            rows = 1;
+        } catch (Exception e) {
+            e.printStackTrace(System.out);
+            conn.getEntityManager().getTransaction().rollback();
+        }
+        return rows;
     }
 
 }

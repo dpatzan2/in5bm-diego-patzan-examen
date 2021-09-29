@@ -6,16 +6,21 @@
 package com.diegopatzan.models.domain;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -28,6 +33,10 @@ import javax.persistence.Table;
             name = "Nota.findAll",
             query = "from Nota"
     
+    ),
+    @NamedQuery(
+            name = "Nota.find",
+            query = "from Nota WHERE id_nota = :id"
     )
 })
 public class Nota implements Serializable {
@@ -35,30 +44,18 @@ public class Nota implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "id_nota")
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int idNota;
     @Column(name = "nombre_actividad")
     private String nombreActividad;
     @Column(name = "nota_actividad")
     private int notaActividad;
+    @Temporal(TemporalType.DATE)
     @Column(name = "fecha_entrega")
     private Date fechaEntrega;
-    @Column(name = "asignacion_id")
-    private String idAsignacion;
-
-    /*private int carne;
-    private String nombres;
-    private String apellidos;
-    private String descripcion;
-    private Timestamp fecha_asignacion;*/
-
-    /*public Timestamp getFecha_asignacion() {
-        return fecha_asignacion;
-    }
-
-    public void setFecha_asignacion(Timestamp fecha_asignacion) {
-        this.fecha_asignacion = fecha_asignacion;
-    }*/
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="asignacion_id", referencedColumnName = "asignacion_id")
+    private AsignacionAlumno asignacionAlumno;
 
     public Nota() {
     }
@@ -67,32 +64,21 @@ public class Nota implements Serializable {
         this.idNota = idNota;
     }
 
-    public Nota(String nombreActividad, int notaActividad, Date fechaEntrega, String idAsignacion) {
+    public Nota(String nombreActividad, int notaActividad, Date fechaEntrega, AsignacionAlumno asignacionAlumno) {
         this.nombreActividad = nombreActividad;
         this.notaActividad = notaActividad;
         this.fechaEntrega = fechaEntrega;
-        this.idAsignacion = idAsignacion;
+        this.asignacionAlumno = asignacionAlumno;
     }
 
-    public Nota(int idNota, String nombreActividad, int notaActividad, Date fechaEntrega, String idAsignacion) {
+    public Nota(int idNota, String nombreActividad, int notaActividad, Date fechaEntrega, AsignacionAlumno asignacionAlumno) {
         this.idNota = idNota;
         this.nombreActividad = nombreActividad;
         this.notaActividad = notaActividad;
         this.fechaEntrega = fechaEntrega;
-        this.idAsignacion = idAsignacion;
+        this.asignacionAlumno = asignacionAlumno;
     }
 
-    /*public Nota(int idNota, String nombreActividad, int notaActividad, Date fechaEntrega, String idAsignacion, int carne, String nombres, String apellidos, String descripcion) {
-        this.idNota = idNota;
-        this.nombreActividad = nombreActividad;
-        this.notaActividad = notaActividad;
-        this.fechaEntrega = fechaEntrega;
-        this.idAsignacion = idAsignacion;
-        this.carne = carne;
-        this.nombres = nombres;
-        this.apellidos = apellidos;
-        this.descripcion = descripcion;
-    }*/
     public int getIdNota() {
         return idNota;
     }
@@ -125,49 +111,19 @@ public class Nota implements Serializable {
         this.fechaEntrega = fechaEntrega;
     }
 
-    public String getIdAsignacion() {
-        return idAsignacion;
+    public AsignacionAlumno getAsignacionAlumno() {
+        return asignacionAlumno;
     }
 
-    public void setIdAsignacion(String idAsignacion) {
-        this.idAsignacion = idAsignacion;
+    public void setAsignacionAlumno(AsignacionAlumno asignacionAlumno) {
+        this.asignacionAlumno = asignacionAlumno;
     }
-
-    /*public int getCarne() {
-        return carne;
-    }
-
-    public void setCarne(int carne) {
-        this.carne = carne;
-    }
-
-    public String getNombres() {
-        return nombres;
-    }
-
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
-    }
-
-    public String getApellidos() {
-        return apellidos;
-    }
-
-    public void setApellidos(String apellidos) {
-        this.apellidos = apellidos;
-    }
-
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }*/
 
     @Override
     public String toString() {
-        return "Nota{" + "idNota=" + idNota + ", nombreActividad=" + nombreActividad + ", notaActividad=" + notaActividad + ", fechaEntrega=" + fechaEntrega + ", idAsignacion=" + idAsignacion /*+ ", carne=" + carne + ", nombres=" + nombres + ", apellidos=" + apellidos + ", descripcion=" + descripcion + '}'*/;
+        return "Nota{" + "idNota=" + idNota + ", nombreActividad=" + nombreActividad + ", notaActividad=" + notaActividad + ", fechaEntrega=" + fechaEntrega + ", asignacionAlumno=" + asignacionAlumno + '}';
     }
+
+    
 
 }

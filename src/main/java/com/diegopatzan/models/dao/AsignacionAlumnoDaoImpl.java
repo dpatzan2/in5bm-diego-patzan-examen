@@ -55,11 +55,8 @@ public class AsignacionAlumnoDaoImpl implements IAsignacionAlumnoDao {
                 String carne = rs.getString("asignacion_alumno.carne");
                 int idCurso = rs.getInt("asignacion_alumno.curso_id");
                 Timestamp fecha_asignacion = rs.getTimestamp("asignacion_alumno.fecha_asignacion");
-                String nombres = rs.getString("alumno.nombres");
-                String apellidos = rs.getString("alumno.apellidos");
-                String descripcion = rs.getString("curso.descripcion");
 
-                asignacionAlumno = new AsignacionAlumno(idAsignacion, carne, idCurso, fecha_asignacion, nombres, apellidos, descripcion);
+                asignacionAlumno = new AsignacionAlumno(idAsignacion, carne, idCurso, fecha_asignacion);
                 listaAsignacionAlumno.add(asignacionAlumno);
             }
         } catch (SQLException e) {
@@ -84,22 +81,13 @@ public class AsignacionAlumnoDaoImpl implements IAsignacionAlumnoDao {
 
             while (rs.next()) {
                 String carne = rs.getString("carne");
-                String nombres = rs.getString("nombres");
-                String apellidos = rs.getString("apellidos");
+               
                 int idCurso = rs.getInt("curso_id");
-                int ciclo = rs.getInt("ciclo");
-                int cupoMaximo = rs.getInt("cupo_maximo");
-                int cupoMinimo = rs.getInt("cupo_minimo");
-
-                String descripcion = rs.getString("descripcion");
+                
                 Timestamp fecha_asignacion = rs.getTimestamp("fecha_asignacion");
 
                 asignacionAlumno.setCarne(carne);
-                asignacionAlumno.setNombres(nombres);
-                asignacionAlumno.setApellidos(apellidos);
                 asignacionAlumno.setIdCurso(idCurso);
-                
-                asignacionAlumno.setDescripcion(descripcion);
                 asignacionAlumno.setFecha_asignacion(fecha_asignacion);
 
             }

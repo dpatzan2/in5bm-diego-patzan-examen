@@ -41,7 +41,7 @@
                                     <div class="mb-3">
                                         <label for="carne" class="form-label text-light">Carné del alumno</label>
                                         <select class="form-select"   name="carne" id="mibuscador carne" data-placeholder="- Seleccione un alumno -"  required>
-                                            <option value="${asignacionAlumno.carne}">Carné: ${asignacionAlumno.carne} | Alumno: ${asignacionAlumno.nombres} ${asignacionAlumno.apellidos} </option>
+                                            <option value="${asignacionAlumno.carne}">Carné: ${asignacionAlumno.carne} </option>
                                             <c:forEach var="alumno" items="${listadoAlumno}">
                                                 <option value="${alumno.carne}">Carné: ${alumno.carne} | Alumno: ${alumno.nombres} ${alumno.apellidos}</option>
                                             </c:forEach>
@@ -50,7 +50,7 @@
                                     <div class="mb-3">
                                         <label for="curso" class="form-label text-light">Curso</label>
                                         <select class="form-select" name="idCurso" id="curso" required>
-                                            <option selected value="${asignacionAlumno.idCurso}">ID: ${asignacionAlumno.idCurso} | Curso: ${asignacionAlumno.descripcion}</option>
+                                            <option selected value="${asignacionAlumno.idCurso}">ID: ${asignacionAlumno.idCurso}</option>
                                             <c:forEach var="curso" items="${listadoCursos}">
                                                 <option value="${curso.idCurso}">ID: ${curso.idCurso} | ${curso.descripcion}</option>
                                             </c:forEach>
