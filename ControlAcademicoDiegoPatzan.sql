@@ -196,7 +196,7 @@ INSERT INTO nota(nombre_actividad, nota_actividad, fecha_entrega, asignacion_id)
 INSERT INTO nota(nombre_actividad, nota_actividad, fecha_entrega, asignacion_id) VALUES ('Historia de la musica', 90, '2021-09-26', 'a5');
 INSERT INTO nota(nombre_actividad, nota_actividad, fecha_entrega, asignacion_id) VALUES ('Proyecto final', 100, '2021-09-26', 'a4');
 INSERT INTO nota(nombre_actividad, nota_actividad, fecha_entrega, asignacion_id) VALUES ('Web Biografia', 85, '2021-09-26', 'a3');
-INSERT INTO nota(nombre_actividad, nota_actividad, fecha_entrega, asignacion_id) VALUES ('Web Biografia', 60, '2021-09-26', 'a1');
+INSERT INTO nota(nombre_actividad, nota_actividad, fecha_entrega, asignacion_id) VALUES ('Web calculadora', 60, '2021-09-26', 'a1');
 
 SELECT nota.id_nota, nota.nombre_actividad, nota.nota_actividad, nota.fecha_entrega, nota.asignacion_id, alumno.carne, alumno.nombres, alumno.apellidos, curso.descripcion, asignacion_alumno.fecha_asignacion
 FROM nota
@@ -210,4 +210,3 @@ SELECT * FROM curso;
 SELECT * FROM nota;
 
 
-UPDATE nota SET nombre_actividad = 'xxxxxxx', nota_actividad = 20, fecha_entrega = '2021-06-20', asignacion_id = 'a5' WHERE id_nota = 3;
