@@ -143,7 +143,7 @@
                 <div class="col-12 col-md-4">
                     <div class="card text-center bg-danger text-white mb-3">
                         <div class="card-body">
-                            <h3>Cantidad de actividades reprobados</h3>
+                            <h3>Cantidad de actividades reprobadas</h3>
                             <h4 class="display-4">
                                 <i class="fas fa-times"></i> ${reprobados}
                             </h4>

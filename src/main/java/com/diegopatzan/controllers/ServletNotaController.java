@@ -127,6 +127,7 @@ public class ServletNotaController extends HttpServlet{
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        request.setCharacterEncoding("UTF-8");
         String accion = request.getParameter("accion");
         
         if (accion != null) {
